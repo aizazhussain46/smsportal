@@ -25,7 +25,6 @@ public function store(Request $request)
 $validator = Validator::make($request->all(), [ 
 'role_id' => 'required',
 'name' => 'required|alpha', 
-'department_id' => 'required',
 'email' => 'required|email|unique:users',
 'password' => 'required', 
 'confirm_password' => 'required|same:password',

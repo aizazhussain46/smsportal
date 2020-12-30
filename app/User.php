@@ -13,15 +13,13 @@ class User extends Authenticatable
 
     protected $fillable = [
         'role_id',
-        'department_id', 
         'master', 
         'email', 
         'password', 
         'name', 
         'mobile_no', 
         'cnic', 
-        'status_id', 
-        'district_id'
+        'status_id'
     ];
 
     protected $hidden = [
@@ -30,24 +28,12 @@ class User extends Authenticatable
      
     protected $with = [
         'role:id,role',
-        'department:id,department',
-        'status:id,status,keyword',
-        'district:id,district'
+        'status:id,status,keyword'
     ];
 
     public function role()
     {
         return $this->belongsTo('App\Role');
-    }
-
-    public function department()
-    {
-        return $this->belongsTo('App\Department');
-    }
-
-    public function district()
-    {
-        return $this->belongsTo('App\District');
     }
 
     public function status()
