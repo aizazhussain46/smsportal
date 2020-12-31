@@ -23,7 +23,6 @@ public function store(Request $request)
 {
 
 $validator = Validator::make($request->all(), [ 
-'role_id' => 'required',
 'name' => 'required|alpha', 
 'email' => 'required|email|unique:users',
 'password' => 'required', 
@@ -41,6 +40,7 @@ return response()->json([
 
 $arr = $this->fields($request);
 $arr['password'] = bcrypt($request->password);
+$arr['role_id'] = 1;
 $created = User::create($arr);
 list($status,$data) = $created ? [ true , User::find($created->id) ] : [ false , ''];
 return ['success' => $status,'data' => $data];
@@ -52,7 +52,6 @@ public function update(Request $request, $id)
 {
 
 $validator = Validator::make($request->all(), [ 
-'role_id' => 'required',
 'name' => 'required|alpha', 
 'department_id' => 'required',
 'email' => 'required|email',
