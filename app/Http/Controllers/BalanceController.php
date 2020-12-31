@@ -12,7 +12,7 @@ class BalanceController extends Controller
     {
         $this->middleware('auth:api');
 	}
-    public function total_balance(){
+    public function total_balance(){        
         $curl = curl_init();
         curl_setopt_array($curl, array(
         CURLOPT_URL => url('api/smsaccountsummary'),
@@ -28,10 +28,10 @@ class BalanceController extends Controller
         curl_close($curl);
         $res = json_decode($response);
         $result = $res->GetAccountSummaryResult->CounterResponse;
-
+        //print_r($result);
         return response()->json([
 			'success' => true,
-			'balance' => $result->Total_Balance
+			'balance' => $result
 		],200);
     }
     public function loggedin_client_balance(){ 
