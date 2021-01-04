@@ -20,8 +20,11 @@ Route::get('created_by_users', 'UserController@created_by_users');
 Route::get('assigned_to_users', 'UserController@assigned_to_users');
 
 Route::resource('topup', 'TopupController');
+Route::resource('campaign', 'CampaignController');
+Route::resource('contact', 'ContactController');
 
 Route::post('quick_sms', 'ApiController@quick_sms');
+Route::post('send_bulk_sms', 'ApiController@bulk_sms');
 Route::get('smsaccountsummary', 'ApiController@account_summary');
 Route::get('totalbalance', 'BalanceController@total_balance');
 Route::get('loggedinuserbalance', 'BalanceController@loggedin_client_balance');
