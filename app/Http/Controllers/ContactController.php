@@ -31,7 +31,7 @@ class ContactController extends Controller
             'name' => 'required',
             'age' => 'required',
             'area' => 'required',
-            'city' => 'required',
+            'city_id' => 'required',
             'gender' => 'required'
 		]); 
 		if ($validator->fails()) { 
@@ -64,7 +64,7 @@ class ContactController extends Controller
             'name' => 'required',
             'age' => 'required',
             'area' => 'required',
-            'city' => 'required',
+            'city_id' => 'required',
             'gender' => 'required'
 		]); 
 		if ($validator->fails()) { 

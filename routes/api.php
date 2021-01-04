@@ -22,6 +22,7 @@ Route::get('assigned_to_users', 'UserController@assigned_to_users');
 Route::resource('topup', 'TopupController');
 Route::resource('campaign', 'CampaignController');
 Route::resource('contact', 'ContactController');
+Route::resource('city', 'CityController');
 
 Route::post('quick_sms', 'ApiController@quick_sms');
 Route::post('send_bulk_sms', 'ApiController@bulk_sms');
