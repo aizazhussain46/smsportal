@@ -17,9 +17,9 @@ class CampaignController extends Controller
     public function index()
     {
         $data = Campaign::all();
-        foreach($data as $camp){
-            $camp['user'] = User::find($camp->user_id);
-        }
+        // foreach($data as $camp){
+        //     $camp['user'] = User::find($camp->user_id);
+        // }
         return response()->json($data);
     }
 
@@ -38,10 +38,11 @@ class CampaignController extends Controller
 
         $input = $request->all(); 
         $input['user_id'] = Auth::id();
-		$campaign = Campaign::create($input); 
+        $campaign = Campaign::create($input); 
+        $data = Campaign::find($campaign->id);
 		return response()->json([
 			'success' => true,
-			'data' => $campaign
+			'data' => $data
 		],200); 
     }
 
@@ -77,5 +78,10 @@ class CampaignController extends Controller
         return (Campaign::find($id)->delete()) 
                 ? [ 'response_status' => true, 'message' => 'Campaign has been deleted' ] 
                 : [ 'response_status' => false, 'message' => 'Campaign cannot delete' ];
+    }
+    public function campaign_by_user(){
+        $id = Auth::id();
+        $campaign = Campaign::where('user_id', $id)->get();
+        return response()->json($campaign);
     }
 }

@@ -17,9 +17,6 @@ class ContactController extends Controller
     public function index()
     {
         $data = Contact::all();
-        foreach($data as $camp){
-            $camp['user'] = User::find($camp->user_id);
-        }
         return response()->json($data);
     }
 
@@ -44,10 +41,11 @@ class ContactController extends Controller
 
         $input = $request->all(); 
         $input['user_id'] = Auth::id();
-		$contact = Contact::create($input); 
+        $contact = Contact::create($input); 
+        $data = Contact::find($contact->id);
 		return response()->json([
 			'success' => true,
-			'data' => $contact
+			'data' => $data
 		],200); 
     }
 
@@ -89,5 +87,11 @@ class ContactController extends Controller
         return (Contact::find($id)->delete()) 
                 ? [ 'response_status' => true, 'message' => 'Contact has been deleted' ] 
                 : [ 'response_status' => false, 'message' => 'Contact cannot delete' ];
+    }
+
+    public function contact_by_user(){
+        $id = Auth::id();
+        $contact = Contact::where('user_id', $id)->get();
+        return response()->json($contact);
     }
 }
