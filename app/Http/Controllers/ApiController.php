@@ -9,10 +9,10 @@ use SoapClient;
 
 class ApiController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-	// }
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+	}
     public function quick_sms(Request $request){
         $destination = $request->number;
         $message = $request->message;
@@ -73,5 +73,20 @@ $resultQuick = $client->QuickSMS(
                                                 'NumberCsv'=>'923101807690,923443817338'
                                             )));
         echo json_encode($resultBulkSMS);
+    }
+
+    public function quick_sms_logs(){
+        $user = Auth::user();
+        if($user->master == 1){
+            $logs = Smsdata::all();
+        }
+        else{
+            $logs = Smsdata::where('user_id', $user->id)->get();
+        }
+
+        return response()->json([
+			'success' => true,
+			'data' => $logs
+		],200);
     }
 }
