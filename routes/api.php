@@ -29,6 +29,7 @@ Route::resource('city', 'CityController');
 Route::post('quick_sms', 'ApiController@quick_sms');
 Route::get('quick_sms_logs', 'ApiController@quick_sms_logs');
 Route::post('send_bulk_sms', 'ApiController@bulk_sms');
+Route::post('bulk_sms', 'BulkController@bulk_sms');
 Route::get('smsaccountsummary', 'ApiController@account_summary');
 Route::get('totalbalance', 'BalanceController@total_balance');
 Route::get('loggedinuserbalance', 'BalanceController@loggedin_client_balance');

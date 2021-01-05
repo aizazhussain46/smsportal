@@ -11,7 +11,7 @@ class ApiController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except('bulk_sms');
 	}
     public function quick_sms(Request $request){
         $destination = $request->number;
@@ -56,6 +56,8 @@ $resultQuick = $client->QuickSMS(
         $numbers = $request->numbers;
         $message = $request->message;
 
+        // var_dump($numbers);
+        // die;
         ini_set("soap.wsdl_cache_enabled", 0);
         $url         = 'http://cbs.zong.com.pk/ReachCWSv2/CorporateSmsV2.svc?wsdl';
         $client     = new SoapClient($url, array("trace" => 1, "exception" => 0)); 
@@ -65,12 +67,13 @@ $resultQuick = $client->QuickSMS(
                                         array(	'LoginId'=>  '923172332451', //here type your account name
                                                 'LoginPassword'=>'Zong@123', //here type your password
                                                 'Mask'=>'Sindh TBCP', //here set allowed mask against your account or you will get invalid mask
-                                                'Message'=>'API Testing in ORD.',
+                                                'Message'=>$message,
                                                 'UniCode'=>'0',
-                                                'CampaignName'=>uniqid(), // Any random name or type uniqid() to generate random number, you can also specify campaign name here if want to send no to any existing campaign, numberCSV parameter will be ignored
+                                                'CampaignName'=>$campaign, // Any random name or type uniqid() to generate random number, you can also specify campaign name here if want to send no to any existing campaign, numberCSV parameter will be ignored
                                                 'CampaignDate'=>date('d/m/Y H:i:s a'), // data from where sms will start sending, if not sure type current date in m/d/y hh:mm:ss tt format.
                                                 'ShortCodePrefered'=>'n',
-                                                'NumberCsv'=>'923101807690,923443817338'
+                                                'NumberCsv'=>$numbers
+                                                //'NumberCsv'=>'923101807690,923443817338'
                                             )));
         echo json_encode($resultBulkSMS);
     }

@@ -26,7 +26,7 @@ class CampaignController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [ 
-			'campaign_name' => 'required'
+			'campaign_name' => 'required|unique:campaigns'
 		]); 
 		if ($validator->fails()) { 
 
@@ -54,7 +54,7 @@ class CampaignController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [ 
-			'campaign_name' => 'required'
+			'campaign_name' => 'required|unique:campaigns'
 		]); 
 		if ($validator->fails()) { 
 
