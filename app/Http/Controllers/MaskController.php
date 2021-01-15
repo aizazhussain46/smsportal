@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Contact;
+use App\Mask;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
-class ContactController extends Controller
+class MaskController extends Controller
 {
     public function __construct()
     {
@@ -16,20 +16,14 @@ class ContactController extends Controller
     
     public function index()
     {
-        $data = Contact::all();
+        $data = Mask::all();
         return response()->json($data);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [ 
-            //'campaign_id' => 'required',
-            'number' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'area' => 'required',
-            'city_id' => 'required',
-            'gender' => 'required'
+			'mask_name' => 'required|unique:masks'
 		]); 
 		if ($validator->fails()) { 
 
@@ -41,8 +35,8 @@ class ContactController extends Controller
 
         $input = $request->all(); 
         $input['user_id'] = Auth::id();
-        $contact = Contact::create($input); 
-        $data = Contact::find($contact->id);
+        $mask = Mask::create($input); 
+        $data = Mask::find($mask->id);
 		return response()->json([
 			'success' => true,
 			'data' => $data
@@ -51,19 +45,13 @@ class ContactController extends Controller
 
     public function show($id)
     {
-        return response()->json(Contact::find($id));
+        return response()->json(Mask::find($id));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [ 
-			//'campaign_id' => 'required',
-            'number' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'area' => 'required',
-            'city_id' => 'required',
-            'gender' => 'required'
+			'mask_name' => 'required|unique:masks'
 		]); 
 		if ($validator->fails()) { 
 
@@ -74,8 +62,8 @@ class ContactController extends Controller
 		}
 
 		$input = $request->all(); 
-        $role = Contact::where('id', $id)->update($input); 
-        $get = Contact::find($id);
+        $mask = Mask::where('id', $id)->update($input); 
+        $get = Mask::find($id);
 		return response()->json([
 			'success' => true,
 			'data' => $get
@@ -84,14 +72,13 @@ class ContactController extends Controller
 
     public function destroy($id)
     {
-        return (Contact::find($id)->delete()) 
-                ? [ 'response_status' => true, 'message' => 'Contact has been deleted' ] 
-                : [ 'response_status' => false, 'message' => 'Contact cannot delete' ];
+        return (Mask::find($id)->delete()) 
+                ? [ 'response_status' => true, 'message' => 'Mask has been deleted' ] 
+                : [ 'response_status' => false, 'message' => 'Mask cannot delete' ];
     }
-
-    public function contact_by_user(){
+    public function mask_by_user(){
         $id = Auth::id();
-        $contact = Contact::where('user_id', $id)->get();
-        return response()->json($contact);
+        $mask = Mask::where('user_id', $id)->get();
+        return response()->json($mask);
     }
 }

@@ -22,6 +22,10 @@ Route::get('assigned_to_users', 'UserController@assigned_to_users');
 Route::resource('topup', 'TopupController');
 Route::resource('campaign', 'CampaignController');
 Route::get('campaign_by_user', 'CampaignController@campaign_by_user');
+
+Route::resource('mask', 'MaskController');
+Route::get('mask_by_user', 'MaskController@mask_by_user');
+
 Route::resource('contact', 'ContactController');
 Route::get('contact_by_user', 'ContactController@contact_by_user');
 Route::resource('city', 'CityController');
