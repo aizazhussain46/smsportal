@@ -16,6 +16,7 @@ class ApiController extends Controller
     public function quick_sms(Request $request){
         $destination = $request->number;
         $message = $request->message;
+        $masking = $request->masking;
 
 $url = 'http://cbs.zong.com.pk/reachcwsv2/corporatesms.svc?wsdl';
 $client = new SoapClient($url, array("trace" => 1, "exception" => 0));
@@ -27,7 +28,7 @@ $resultQuick = $client->QuickSMS(
             'loginId'=>'923172332451', 
             'loginPassword'=>'Zong@123', 
             'Destination'=>$destination, 
-            'Mask'=>'Sindh TBCP', 
+            'Mask'=>$masking, 
             'Message'=>$message, 
             'UniCode'=>0 , 
             'ShortCodePrefered'=>'n')));
@@ -55,6 +56,7 @@ $resultQuick = $client->QuickSMS(
         $campaign = $request->campaign;
         $numbers = $request->numbers;
         $message = $request->message;
+        $masking = $request->masking;
 
         // var_dump($numbers);
         // die;
@@ -66,7 +68,7 @@ $resultQuick = $client->QuickSMS(
                         array('objBulkSms' => 
                                         array(	'LoginId'=>  '923172332451', //here type your account name
                                                 'LoginPassword'=>'Zong@123', //here type your password
-                                                'Mask'=>'Sindh TBCP', //here set allowed mask against your account or you will get invalid mask
+                                                'Mask'=>$masking, //here set allowed mask against your account or you will get invalid mask
                                                 'Message'=>$message,
                                                 'UniCode'=>'0',
                                                 'CampaignName'=>$campaign, // Any random name or type uniqid() to generate random number, you can also specify campaign name here if want to send no to any existing campaign, numberCSV parameter will be ignored

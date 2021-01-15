@@ -17,6 +17,7 @@ class BulkController extends Controller
     public function bulk_sms(Request $request){
         $camp_id = $request->campaign_id;
         $message = $request->message;
+        $masking = $request->masking;
 
         $campaign = Campaign::find($camp_id);
         $contact = Contact::where('campaign_id',$camp_id)->get();
@@ -36,7 +37,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => array('campaign'=>$campaign->campaign_name, 'message'=>$message,'numbers'=>$numbers),
+  CURLOPT_POSTFIELDS => array('campaign'=>$campaign->campaign_name, 'message'=>$message,'numbers'=>$numbers, 'masking'=>$masking),
 ));
 $response = curl_exec($curl);
 curl_close($curl);
