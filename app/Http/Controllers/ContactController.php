@@ -24,12 +24,7 @@ class ContactController extends Controller
     {
         $validator = Validator::make($request->all(), [ 
             'group_id' => 'required',
-            'number' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'area' => 'required',
-            'city_id' => 'required',
-            'gender' => 'required'
+            'number' => 'required'
 		]); 
 		if ($validator->fails()) { 
 
@@ -58,12 +53,7 @@ class ContactController extends Controller
     {
         $validator = Validator::make($request->all(), [ 
 			'group_id' => 'required',
-            'number' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'area' => 'required',
-            'city_id' => 'required',
-            'gender' => 'required'
+            'number' => 'required'
 		]); 
 		if ($validator->fails()) { 
 
