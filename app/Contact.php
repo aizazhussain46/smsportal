@@ -9,14 +9,14 @@ class Contact extends Model
     protected $guarded = [];
 
     protected $with = [
-        'campaign:id,campaign_name',
+        'group:id,group_name',
         'city:id,city_name',
         'user:id,name,email'
     ];
 
-    public function campaign()
+    public function group()
     {
-        return $this->belongsTo('App\Campaign');
+        return $this->belongsTo('App\Group');
     }
     public function city()
     {

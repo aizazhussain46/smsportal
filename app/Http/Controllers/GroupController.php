@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Contact;
+use App\Group;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
-class ContactController extends Controller
+class GroupController extends Controller
 {
     public function __construct()
     {
@@ -16,20 +16,14 @@ class ContactController extends Controller
     
     public function index()
     {
-        $data = Contact::all();
+        $data = Group::all();
         return response()->json($data);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [ 
-            'group_id' => 'required',
-            'number' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'area' => 'required',
-            'city_id' => 'required',
-            'gender' => 'required'
+			'group_name' => 'required|unique:groups'
 		]); 
 		if ($validator->fails()) { 
 
@@ -41,8 +35,8 @@ class ContactController extends Controller
 
         $input = $request->all(); 
         $input['user_id'] = Auth::id();
-        $contact = Contact::create($input); 
-        $data = Contact::find($contact->id);
+        $group = Group::create($input); 
+        $data = Group::find($group->id);
 		return response()->json([
 			'success' => true,
 			'data' => $data
@@ -51,19 +45,13 @@ class ContactController extends Controller
 
     public function show($id)
     {
-        return response()->json(Contact::find($id));
+        return response()->json(Group::find($id));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [ 
-			'group_id' => 'required',
-            'number' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'area' => 'required',
-            'city_id' => 'required',
-            'gender' => 'required'
+			'group_name' => 'required|unique:groups'
 		]); 
 		if ($validator->fails()) { 
 
@@ -74,8 +62,8 @@ class ContactController extends Controller
 		}
 
 		$input = $request->all(); 
-        $role = Contact::where('id', $id)->update($input); 
-        $get = Contact::find($id);
+        $role = Group::where('id', $id)->update($input); 
+        $get = Group::find($id);
 		return response()->json([
 			'success' => true,
 			'data' => $get
@@ -84,14 +72,13 @@ class ContactController extends Controller
 
     public function destroy($id)
     {
-        return (Contact::find($id)->delete()) 
-                ? [ 'response_status' => true, 'message' => 'Contact has been deleted' ] 
-                : [ 'response_status' => false, 'message' => 'Contact cannot delete' ];
+        return (Group::find($id)->delete()) 
+                ? [ 'response_status' => true, 'message' => 'Group has been deleted' ] 
+                : [ 'response_status' => false, 'message' => 'Group cannot delete' ];
     }
-
-    public function contact_by_user(){
+    public function group_by_user(){
         $id = Auth::id();
-        $contact = Contact::where('user_id', $id)->get();
-        return response()->json($contact);
+        $group = Group::where('user_id', $id)->get();
+        return response()->json($group);
     }
 }
