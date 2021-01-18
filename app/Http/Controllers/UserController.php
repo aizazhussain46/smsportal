@@ -53,7 +53,6 @@ public function update(Request $request, $id)
 
 $validator = Validator::make($request->all(), [ 
 'name' => 'required|alpha', 
-'department_id' => 'required',
 'email' => 'required|email',
 'mobile_no' => 'required|numeric',
 'cnic' => 'required|numeric',
