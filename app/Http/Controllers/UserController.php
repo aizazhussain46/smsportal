@@ -23,7 +23,7 @@ public function store(Request $request)
 {
 
 $validator = Validator::make($request->all(), [ 
-'name' => 'required|alpha', 
+'name' => 'required', 
 'email' => 'required|email|unique:users',
 'password' => 'required', 
 'confirm_password' => 'required|same:password',
@@ -52,7 +52,7 @@ public function update(Request $request, $id)
 {
 
 $validator = Validator::make($request->all(), [ 
-'name' => 'required|alpha', 
+'name' => 'required', 
 'email' => 'required|email',
 'mobile_no' => 'required|numeric',
 'cnic' => 'required|numeric',
