@@ -144,14 +144,12 @@ public function fields($request)
 # code...
 return [
 'role_id' => $request->role_id, 
-'department_id' => $request->department_id, 
 'master' => 0, 
 'email' => $request->email, 
 'name' => $request->name,   
 'mobile_no' => $request->mobile_no, 
 'cnic' =>  $request->cnic, 
-'isActive' => $request->isActive, 
-'district_id' => $request->district_id
+'isActive' => $request->isActive,
 ];
 }
 }
