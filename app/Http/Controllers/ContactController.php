@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ContactsImport;
 use App\Contact;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -83,5 +85,11 @@ class ContactController extends Controller
         $id = Auth::id();
         $contact = Contact::where('user_id', $id)->get();
         return response()->json($contact);
+    }
+    public function upload_contacts(Request $request)
+    {
+        $id = Auth::id();
+        Excel::import(new ContactsImport($request->group_id, $id), $request->file('csv')->store('temp'));
+        return ['response_status' => true, 'message' => 'Contact list Uploaded Successfully'];
     }
 }

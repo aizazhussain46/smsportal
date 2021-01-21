@@ -32,6 +32,7 @@ Route::get('mask_by_user', 'MaskController@mask_by_user');
 Route::resource('contact', 'ContactController');
 Route::get('contact_by_user', 'ContactController@contact_by_user');
 Route::resource('city', 'CityController');
+Route::post('upload_contacts', 'ContactController@upload_contacts');
 
 Route::post('quick_sms', 'ApiController@quick_sms');
 Route::get('quick_sms_logs', 'ApiController@quick_sms_logs');
