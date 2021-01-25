@@ -58,8 +58,7 @@ $resultQuick = $client->QuickSMS(
         $message = $request->message;
         $masking = $request->masking;
 
-        // var_dump($numbers);
-        // die;
+        date_default_timezone_set('Asia/karachi');
         ini_set("soap.wsdl_cache_enabled", 0);
         $url         = 'http://cbs.zong.com.pk/ReachCWSv2/CorporateSmsV2.svc?wsdl';
         $client     = new SoapClient($url, array("trace" => 1, "exception" => 0)); 
@@ -72,7 +71,7 @@ $resultQuick = $client->QuickSMS(
                                                 'Message'=>$message,
                                                 'UniCode'=>'0',
                                                 'CampaignName'=>$campaign, // Any random name or type uniqid() to generate random number, you can also specify campaign name here if want to send no to any existing campaign, numberCSV parameter will be ignored
-                                                'CampaignDate'=>date('d/m/Y H:i:s a'), // data from where sms will start sending, if not sure type current date in m/d/y hh:mm:ss tt format.
+                                                'CampaignDate'=>date('m/d/Y h:m:s a'), // data from where sms will start sending, if not sure type current date in m/d/y hh:mm:ss tt format.
                                                 'ShortCodePrefered'=>'n',
                                                 'NumberCsv'=>$numbers
                                                 //'NumberCsv'=>'923101807690,923443817338'

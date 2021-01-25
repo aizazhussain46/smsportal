@@ -23,7 +23,8 @@ class MaskController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [ 
-			'mask_name' => 'required|unique:masks'
+            'mask_name' => 'required|unique:masks',
+            'user_id' => 'required'
 		]); 
 		if ($validator->fails()) { 
 
@@ -34,7 +35,7 @@ class MaskController extends Controller
 		}
 
         $input = $request->all(); 
-        $input['user_id'] = Auth::id();
+        $input['user_id'] = $request->user_id;
         $mask = Mask::create($input); 
         $data = Mask::find($mask->id);
 		return response()->json([
@@ -51,7 +52,8 @@ class MaskController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [ 
-			'mask_name' => 'required|unique:masks'
+            'mask_name' => 'required|unique:masks',
+            'user_id' => 'required'
 		]); 
 		if ($validator->fails()) { 
 

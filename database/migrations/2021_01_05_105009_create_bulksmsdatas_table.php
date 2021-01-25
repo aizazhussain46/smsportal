@@ -17,6 +17,7 @@ class CreateBulksmsdatasTable extends Migration
             $table->id();
             $table->integer('user_id')->nullable();
             $table->longText('campaign_id')->nullable();
+            $table->longText('group_id')->nullable();
             $table->longText('message')->nullable();
             $table->longText('response')->nullable();
             $table->timestamps();
