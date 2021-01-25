@@ -16,6 +16,19 @@ class BulkController extends Controller
         $this->middleware('auth:api');
 	}
     public function bulk_sms(Request $request){
+        $validator = Validator::make($request->all(), [ 
+            'campaign_id' => 'required',
+            'group_id' => 'required',
+            'masking_id' => 'required',
+            'message' => 'required'
+		]); 
+		if ($validator->fails()) { 
+
+			return response()->json([
+			'success' => false,
+			'errors' => $validator->errors()
+		]); 
+		}
         $camp_id = $request->campaign_id;
         $group_id = $request->group_id;
         $message = $request->message;
